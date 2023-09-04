@@ -1,0 +1,17 @@
+{
+  "name": "javascript2---course-assigment",
+  "version": "1.0.0",
+  "description": "A social media plattorm build with bootstrap, scss and javascript",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass src/scss:dist/css",
+    "watch": "sass --watch src/scss:dist/css"
+  },
+  "author": "Nina Amdal",
+  "license": "ISC",
+  "github repo": "https://github.com/Ninuskaninus/Javascript2---Course-Assigment",
+  "dependencies": {
+    "bootstrap": "^5.3.1",
+    "sass": "^1.66.1"
+  }
+}
