@@ -1,17 +1,17 @@
 {
-  "name": "javascript2---course-assigment",
+  "name": "css-frameworks-ca",
   "version": "1.0.0",
-  "description": "A social media plattorm build with bootstrap, scss and javascript",
+  "description": "Social media plattform for course assigmen Javascript 2",
   "main": "index.js",
   "scripts": {
     "build": "sass src/scss:dist/css",
-    "watch": "sass --watch src/scss:dist/css"
+    "watch": "sass --watch src/scss:dist/css & live-server"
   },
-  "author": "Nina Amdal",
+  "author": "",
   "license": "ISC",
-  "github repo": "https://github.com/Ninuskaninus/Javascript2---Course-Assigment",
   "dependencies": {
     "bootstrap": "^5.3.1",
     "sass": "^1.66.1"
-  }
+  },
+  "devDependencies": {}
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/create-profile.js"></script>
+    <link rel="stylesheet" href="/dist/css/index.css" />
+    <link rel="favicon" href="" />
+    <title>SassTrap</title>
+  </head>
+  <body class="bg-primary">
+    <div
+      class="container w-75 min-vh-100 d-flex justify-content-center flex-column"
+    >
+      <form id="userForm" class="form-floating">
+        <div>
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" name="fullName" required />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div>
+          <label for="createPassword">Password:</label>
+          <input
+            type="password"
+            id="createPassword"
+            name="createPassword"
+            required
+          />
+        </div>
+        <div>
+          <label for="confirmPassword">Confirm Password:</label>
+
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+        </div>
+
+        <button type="submit" id="createProfile">Create User</button>
+      </form>
+      <div id="errorMessages"></div>
+    </div>
+  </body>
+</html>
