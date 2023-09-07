@@ -1,72 +1,126 @@
-const fullName = document.getElementById("fullName");
-const email = document.getElementById("email");
-const password = document.getElementById("createPassword");
-const confirmPassword = document.getElementById("confirmPassword");
-const createProfileBtn = document.getElementById("createProfile");
-const userForm = document.getElementById("userForm");
-const errorMessages = document.getElementById("errorMessages");
+const api_base_url = "https://api.noroff.dev/api/v1";
 
-userForm.addEventListener("submit", function (e) {
-  // Initialize an array to store error messages
-  const errors = [];
+// Endpoints
+const register_endpoint = "/holidaze/auth/register";
+const login_endpoint = "/social/auth/login";
+const posts_endpoint = "/social/posts";
 
-  // Validate Full Name (not empty)
-  if (fullName.value.trim() === "") {
-    errors.push("Full Name is required.");
-    fullName.classList.add("error");
-  } else {
-    fullName.classList.remove("error");
-  }
 
-  // Validate Email (matches @noroff.no or @noroff.stud.no)
-  const emailRegex = /@noroff\.(no|stud\.no)$/;
-  if (!emailRegex.test(email.value.toLowerCase())) {
-    errors.push("Email must be @noroff.no or @noroff.stud.no.");
-    email.classList.add("error");
-  } else {
-    email.classList.remove("error");
-  }
+//------------------REGISTER------------------//
 
-  // Validate Password (at least 8 characters)
-  if (password.value.length < 8) {
-    errors.push("Password must be at least 8 characters.");
-    password.classList.add("error");
-  } else {
-    password.classList.remove("error");
-  }
+/**
+ * API call that registers the user
+ * @param {string} url 
+ * @param {any} userData 
+ * 
+ * ```js
+ *createProfile (registerUrl, userToRegister);
+  * ```
+ */
 
-  // Validate Confirm Password (matches Password)
-  if (confirmPassword.value !== password.value) {
-    errors.push("Passwords do not match.");
-    confirmPassword.classList.add("error");
-  } else {
-    confirmPassword.classList.remove("error");
-  }
+ const API_BASE_URL = 'https://api.noroff.dev';
 
-  // Display error messages if there are any
-  if (errors.length > 0) {
-    e.preventDefault(); // Prevent form submission
-    errorMessages.innerHTML = errors.join("<br>");
-  } else {
-    // Clear any previous error messages
-    errorMessages.innerHTML = "";
+ async function registerUser(url, data) {
+   try {
+     const postData = {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(data),
+     };
+ 
+     const response = await fetch(url, postData);
+     console.log(response);
+     const json = await response.json();
+     console.log(json);
+     return json;
+   } catch (error) {
+     console.log(error);
+   }
+ }
+ 
+ const user = {
+   name: 'ninuskaninus',
+   email: 'NinAmd94811@stud.noroff.no',
+   password: 'hurrysorry',
+ };
+ 
+ registerUser(`${API_BASE_URL}/api/v1/social/auth/register`, user);
 
-    // Store user information in local storage
-    const user = {
-      fullName: fullName.value,
-      email: email.value,
-      password: password.value,
+
+//------------------LOGIN------------------//
+
+/**
+ * Log in the user
+ * @param {string} url 
+ * @param {any} userData 
+ * ```js
+ * login(loginUrl, userToLogin);
+ * ```
+ */ 
+
+async function login(url, userData) {
+  try {
+    
+    const postData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
     };
-    localStorage.setItem("userData", JSON.stringify(user));
 
-    // Redirect or perform other actions here
-    // For example, you can redirect to another page after successful registration
-    // window.location.href = "...";
-
-    // Optionally, clear the form fields
-    fullName.value = "";
-    email.value = "";
-    password.value = "";
-    confirmPassword.value = "";
+    const response = await fetch(url, postData);
+    const json = await response.json();
+    const accessToken = json.accessToken;
+    localStorage.setItem("accessToken", accessToken);
+    
+  } catch (error) {
+    console.log(error);
   }
-});
+}
+
+const userToLogin = {
+  name: 'ninuskaninus',
+  email: 'NinAmd94811@stud.noroff.no',
+  password: 'hurrysorry',
+};
+
+const loginUrl = `${api_base_url}${login_endpoint}`;
+
+login(loginUrl, userToLogin);
+
+//------------------Request with token------------------//
+
+/** Get data with token
+ * @param {string} url 
+ * 
+ * ```js
+ * getWithToken(postsUrl);
+ * ```
+ */
+
+async function getWithToken(url){
+const token = localStorage.getItem("accessToken");
+  try {
+    const fetchData = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+
+      },
+    });
+    const json = await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+const postsUrl = `${api_base_url}${posts_endpoint}`;
+
+
+getWithToken(postsUrl, fetchData);
+
