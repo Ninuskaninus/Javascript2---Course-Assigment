@@ -1,126 +1,107 @@
-const api_base_url = "https://api.noroff.dev/api/v1";
+const API_BASE_URL = 'https://api.noroff.dev';
 
-// Endpoints
-const register_endpoint = "/holidaze/auth/register";
-const login_endpoint = "/social/auth/login";
-const posts_endpoint = "/social/posts";
-
-
-//------------------REGISTER------------------//
-
-/**
- * API call that registers the user
- * @param {string} url 
- * @param {any} userData 
- * 
- * ```js
- *createProfile (registerUrl, userToRegister);
-  * ```
- */
-
- const API_BASE_URL = 'https://api.noroff.dev';
-
- async function registerUser(url, data) {
-   try {
-     const postData = {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify(data),
-     };
- 
-     const response = await fetch(url, postData);
-     console.log(response);
-     const json = await response.json();
-     console.log(json);
-     return json;
-   } catch (error) {
-     console.log(error);
-   }
- }
- 
- const user = {
-   name: 'ninuskaninus',
-   email: 'NinAmd94811@stud.noroff.no',
-   password: 'hurrysorry',
- };
- 
- registerUser(`${API_BASE_URL}/api/v1/social/auth/register`, user);
-
-
-//------------------LOGIN------------------//
-
-/**
- * Log in the user
- * @param {string} url 
- * @param {any} userData 
- * ```js
- * login(loginUrl, userToLogin);
- * ```
- */ 
-
-async function login(url, userData) {
+async function registerUser(url, data) {
   try {
-    
     const postData = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(data),
     };
 
     const response = await fetch(url, postData);
     const json = await response.json();
-    const accessToken = json.accessToken;
-    localStorage.setItem("accessToken", accessToken);
-    
+    return json;
   } catch (error) {
     console.log(error);
   }
 }
 
-const userToLogin = {
-  name: 'ninuskaninus',
-  email: 'NinAmd94811@stud.noroff.no',
-  password: 'hurrysorry',
+const user = {
+  name: 'nina_amdal',
+  email: 'ninaamdal@noroff.no',
+  password: 'thisisapassword',
 };
 
-const loginUrl = `${api_base_url}${login_endpoint}`;
+registerUser(`${API_BASE_URL}/api/v1/social/auth/register`, user);
 
-login(loginUrl, userToLogin);
+const userLogin = {
+  email: 'ninaamdal@noroff.no',
+  password: 'thisisapassword',
+};
 
-//------------------Request with token------------------//
-
-/** Get data with token
- * @param {string} url 
- * 
- * ```js
- * getWithToken(postsUrl);
- * ```
- */
-
-async function getWithToken(url){
-const token = localStorage.getItem("accessToken");
+async function loginUser(url, data) {
   try {
-    const fetchData = await fetch(url, {
-      method: "GET",
+    const postData = {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-
+        'Content-Type': 'application/json',
       },
-    });
+      body: JSON.stringify(data),
+    };
+    const response = await fetch(url, postData);
+    const json = await response.json();
+    const accessToken = json.accessToken;
+    localStorage.setItem('accessToken', accessToken);
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+loginUser(`${API_BASE_URL}/api/v1/social/auth/login`, user);
+
+async function fetchWithToken(url) {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const getData = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, getData);
     const json = await response.json();
   } catch (error) {
     console.log(error);
   }
-
 }
 
-const postsUrl = `${api_base_url}${posts_endpoint}`;
+fetchWithToken(API_BASE_URL + '/api/v1/social/posts');
 
 
-getWithToken(postsUrl, fetchData);
+// Define an object to store user data
+const userData = {};
 
+// Function to handle form submission
+document.getElementById('userForm').addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Get user inputs from the form
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('createPassword').value;
+
+  // Create an object to store user data
+  const user = {
+    username,
+    email,
+    password,
+  };
+
+  // Store user data in the userData object
+  userData[username] = user;
+
+  // Optionally, you can clear the form fields
+  document.getElementById('username').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('createPassword').value = '';
+  document.getElementById('confirmPassword').value = '';
+
+  // Optionally, display a success message or perform other actions
+  alert('User created successfully!');
+});
+
+console.log(userData);

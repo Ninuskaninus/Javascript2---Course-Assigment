@@ -8,41 +8,61 @@
     <title>SassTrap</title>
   </head>
   <body class="bg-primary">
-    <div
-      class="container w-75 min-vh-100 d-flex justify-content-center flex-column"
-    >
-      <form id="userForm" class="form-floating">
-        <div>
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username"  />
-        </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email"  />
-        </div>
-        <div>
-          <label for="createPassword">Password:</label>
+    <div class="w-100 container min-vh-100 justify-content-center align-items-center w-100 d-flex">
+      <div class="w-100 min-vh-100 justify-content-center align-items-center d-flex flex-column">
+          <img class="p-4 w-75" src="/img/sasstrapp-logo.png" alt="">
+          <h1 class="text-white">Create profile</h1>
+          <form  
+        action="profile/index.html"
+        class="p-4 container w-75"
+        minlength="8"
+        id="userForm">
+        
+        <div class="form-floating mb-3">
           <input
-            type="password"
-            id="createPassword"
-            name="createPassword"
-            
+            type="text"
+            class="form-control w-100 dropshadow-input"
+            id="username"
+            placeholder="create a username"
           />
+          <label for="username">Username</label>
         </div>
-        <div>
-          <label for="confirmPassword">Confirm Password:</label>
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              class="form-control w-100 dropshadow-input"
+              id="email"
+              placeholder="name@example.com"
+            />
+            <label for="email">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control w-100 dropshadow-input"
+              id="createPassword"
+              placeholder="name@example.com"
+            />
+            <label for="createPassword">Create password</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control w-100 dropshadow-input"
+              id="confirmPassword"
+              placeholder="name@example.com"
+            />
+            <label for="confirmPassword">Confirm password</label>
+          </div>
 
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            
-          />
-        </div>
-
-        <button type="submit" id="createProfile">Create User</button>
-      </form>
-      <div id="errorMessages"></div>
+          <div class="container d-flex flex-column align-items-center w-100">
+          <button class="w-100 btn btn-lg btn-primary mt-4" id="login"  type="submit">
+            Create user
+          </button>
+          <a href="/index.html" class="text-secondary mt-4">Cancel</a>
+          </div>
+        </form>
+      </div>
     </div>
     <script type="module" src="/js/users.js"></script>
     <script type="module" src="/js/create-profile.js"></script>
