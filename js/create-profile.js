@@ -72,36 +72,3 @@ async function fetchWithToken(url) {
 fetchWithToken(API_BASE_URL + '/api/v1/social/posts');
 
 
-// Define an object to store user data
-const userData = {};
-
-// Function to handle form submission
-document.getElementById('userForm').addEventListener('submit', function (event) {
-  event.preventDefault(); // Prevent form submission
-
-  // Get user inputs from the form
-  const username = document.getElementById('username').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('createPassword').value;
-
-  // Create an object to store user data
-  const user = {
-    username,
-    email,
-    password,
-  };
-
-  // Store user data in the userData object
-  userData[username] = user;
-
-  // Optionally, you can clear the form fields
-  document.getElementById('username').value = '';
-  document.getElementById('email').value = '';
-  document.getElementById('createPassword').value = '';
-  document.getElementById('confirmPassword').value = '';
-
-  // Optionally, display a success message or perform other actions
-  alert('User created successfully!');
-});
-
-console.log(userData);
